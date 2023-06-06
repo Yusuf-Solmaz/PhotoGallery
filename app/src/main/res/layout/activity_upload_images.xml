@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8AC7E3"
-    tools:context=".UploadImage">
+    tools:context=".UploadImages">
 
     <EditText
         android:id="@+id/dateEditText"
@@ -22,16 +22,19 @@
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="111dp"
-        android:layout_height="55dp"
+        android:layout_width="124dp"
+        android:layout_height="51dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="#2A532C"
+        android:layout_marginBottom="72dp"
+        android:backgroundTint="#32CF39"
         android:onClick="saveImage"
         android:text="Save"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
         android:id="@+id/titleEditText"
@@ -49,19 +52,16 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <ImageView
-        android:onClick="chooseImage"
         android:id="@+id/imageView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginBottom="42dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
+        android:layout_width="347dp"
+        android:layout_height="279dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="209dp"
+        android:onClick="chooseImage"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
+        app:srcCompat="@drawable/choose" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

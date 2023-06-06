@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.menuItem){
-            val intent = Intent(this@MainActivity,UploadImage::class.java)
+            val intent = Intent(this@MainActivity,UploadImages::class.java)
             startActivity(intent)
             finish()
         }
