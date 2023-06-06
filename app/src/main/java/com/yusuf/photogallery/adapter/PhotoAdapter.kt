@@ -29,6 +29,7 @@ class PhotoAdapter (val photos: ArrayList<PhotoDao>): RecyclerView.Adapter<Photo
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context,UploadImages::class.java)
             intent.putExtra("info","old")
+            intent.putExtra("id",photos[position].id)
             holder.itemView.context.startActivity(intent)
         }
     }

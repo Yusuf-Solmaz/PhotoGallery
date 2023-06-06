@@ -4,7 +4,9 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -31,12 +33,14 @@ class UploadImages : AppCompatActivity() {
 
     var selectedBitmap : Bitmap?=null
 
+    private lateinit var myDb: SQLiteDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadImagesBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        myDb = this@UploadImages.openOrCreateDatabase("Photos", MODE_PRIVATE,null)
         registerLauncher()
         intent = intent
 
@@ -48,6 +52,23 @@ class UploadImages : AppCompatActivity() {
             binding.titleEditText.isEnabled = false
             binding.imageView4.isEnabled = false
             binding.saveButton.visibility = Button.GONE
+
+            val id = intent.getIntExtra("id",0)
+            val cursor = myDb.rawQuery("Select * from photos where id = ?", arrayOf(id.toString()))
+            val titleIx = cursor.getColumnIndex("title")
+            val imageIx = cursor.getColumnIndex("image")
+            val dateIx = cursor.getColumnIndex("date")
+            while (cursor.moveToNext()){
+
+                binding.titleEditText.setText(cursor.getString(titleIx))
+                binding.dateEditText.setText(cursor.getString(dateIx))
+
+                val byteArray = cursor.getBlob(imageIx)
+                val bitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
+                binding.imageView4.setImageBitmap(bitmap)
+
+            }
+            cursor.close()
         }
     }
 
@@ -55,7 +76,7 @@ class UploadImages : AppCompatActivity() {
 
     fun saveImage(view: View){
 
-        val date = binding.titleEditText.text.toString()
+        val date = binding.dateEditText.text.toString()
         val title=binding.titleEditText.text.toString()
 
         if (selectedBitmap !=null){
@@ -67,7 +88,7 @@ class UploadImages : AppCompatActivity() {
 
 
             try {
-                val myDb = this@UploadImages.openOrCreateDatabase("Photos", MODE_PRIVATE,null)
+
                 myDb.execSQL("create table if  not exists photos (id Integer Primary Key,title Varchar, date Varchar,image Blob)")
 
                 val insertDatas = "insert into photos (title,date,image) values (?,?,?)"
