@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -37,6 +38,17 @@ class UploadImages : AppCompatActivity() {
         setContentView(view)
 
         registerLauncher()
+        intent = intent
+
+        if (intent.getStringExtra("info")=="new"){
+
+        }
+        else{
+            binding.dateEditText.isEnabled = false
+            binding.titleEditText.isEnabled = false
+            binding.imageView4.isEnabled = false
+            binding.saveButton.visibility = Button.GONE
+        }
     }
 
 
