@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.Snackbar
 import com.yusuf.photogallery.databinding.ActivityUploadImagesBinding
+import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
 class UploadImages : AppCompatActivity() {
@@ -42,6 +43,41 @@ class UploadImages : AppCompatActivity() {
 
     fun saveImage(view: View){
 
+        val date = binding.titleEditText.text.toString()
+        val title=binding.titleEditText.text.toString()
+
+        if (selectedBitmap !=null){
+            val smallBitmap = makeSmallerBitmap(selectedBitmap!!,300)
+
+            val outputStream = ByteArrayOutputStream()
+            smallBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
+            val byteArray = outputStream.toByteArray()
+
+
+            try {
+                val myDb = this@UploadImages.openOrCreateDatabase("Photos", MODE_PRIVATE,null)
+                myDb.execSQL("create table if  not exists photos (id Integer Primary Key,title Varchar, date Varchar,image Blob)")
+
+                val insertDatas = "insert into photos (title,date,image) values (?,?,?)"
+                val statement = myDb.compileStatement(insertDatas)
+                statement.bindString(1,title)
+                statement.bindString(2,date)
+                statement.bindBlob(3,byteArray)
+
+                Toast.makeText(this@UploadImages,"Saved!",Toast.LENGTH_LONG).show()
+                statement.execute()
+            }
+            catch (e : Exception){
+                e.printStackTrace()
+            }
+
+        }
+
+
+
+        val intent = Intent (this@UploadImages,MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
 
     }
 
@@ -144,5 +180,28 @@ class UploadImages : AppCompatActivity() {
                 Toast.makeText(this@UploadImages,"Permission Neded!",Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun makeSmallerBitmap(image: Bitmap,maxSize:Int) : Bitmap{
+        var width= image.width
+        var height = image.height
+
+        val bitmapRatio: Double = width.toDouble()/height.toDouble()
+
+        if (bitmapRatio >1 ){
+            //Image is landscape
+
+            width = maxSize
+            val scaledHeight = width/bitmapRatio
+            height = scaledHeight.toInt()
+        }
+        else{
+            //Image is portrait
+            height = maxSize
+            val scaledWidth = height*bitmapRatio
+            width = scaledWidth.toInt()
+        }
+
+        return Bitmap.createScaledBitmap(image,width,height,true)
     }
 }
