@@ -5,28 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.yusuf.photogallery.R
+import com.yusuf.photogallery.databinding.FragmentSharingImageBinding
 
 
+class SharingImage : Fragment(R.layout.fragment_sharing_image) {
 
-class SharingImage : Fragment() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sharing_image, container, false)
-    }
+    private lateinit var fragmentBinding: FragmentSharingImageBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentSharingImageBinding.bind(view)
+        fragmentBinding = binding
+
+        binding.imageView.setOnClickListener {
+            findNavController().navigate(SharingImageDirections.actionSharingImageToImageSearch())
+        }
     }
 
 }
