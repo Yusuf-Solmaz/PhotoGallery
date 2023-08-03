@@ -19,7 +19,7 @@ data class ImageResult(
     val tags: String,
     val type: String,
     val user: String,
-    @SerializedName("user_id")
+    @SerializedName("user_id")  //  Eğer jsondan gelen ile bizim yazdığımız variable farklıysa.
     val userId : Int,
     val userImageURL: String,
     val views : Int,
