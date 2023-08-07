@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Image(
     var title: String,
     var place:String,
-    var date:Int,
+    var date:String,
     var imageUrl:String,
     @PrimaryKey(autoGenerate = true)
     var id: Int? =null
