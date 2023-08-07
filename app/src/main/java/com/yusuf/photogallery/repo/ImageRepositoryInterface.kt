@@ -11,7 +11,7 @@ interface ImageRepositoryInterface {
 
     suspend fun deleteImage(image: Image)
 
-    fun getArt(): LiveData<List<Image>>
+    fun getImage(): LiveData<List<Image>>
 
     suspend fun searchImage (imageName: String): Resource<ImageResponse>
 

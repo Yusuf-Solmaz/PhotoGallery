@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.yusuf.photogallery.R
 import com.yusuf.photogallery.databinding.FragmentFeedBinding
+import javax.inject.Inject
 
-class FeedFragment : Fragment(R.layout.fragment_feed) {
+class FeedFragment @Inject constructor() : Fragment(R.layout.fragment_feed) {
 
 
     private var fragmentBinding: FragmentFeedBinding? = null

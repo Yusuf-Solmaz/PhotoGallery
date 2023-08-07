@@ -22,7 +22,7 @@ class ImageRepository @Inject constructor(
         imageDao.deleteImage(image)
     }
 
-    override fun getArt(): LiveData<List<Image>> {
+    override fun getImage(): LiveData<List<Image>> {
             return imageDao.observeArts()
     }
 
