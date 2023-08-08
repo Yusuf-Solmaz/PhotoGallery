@@ -8,10 +8,12 @@ import com.yusuf.photogallery.model.ImageResponse
 import com.yusuf.photogallery.repo.ImageRepositoryInterface
 import com.yusuf.photogallery.roomdb.Image
 import com.yusuf.photogallery.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+@HiltViewModel
 class ImageViewModel @Inject constructor(
     private val repository: ImageRepositoryInterface
 ) : ViewModel() {
