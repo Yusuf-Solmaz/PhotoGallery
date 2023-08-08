@@ -2,9 +2,10 @@ package com.yusuf.photogallery.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.yusuf.photogallery.R
 import com.yusuf.photogallery.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
