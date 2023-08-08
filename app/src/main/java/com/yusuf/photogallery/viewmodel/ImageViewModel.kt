@@ -76,6 +76,9 @@ class ImageViewModel @Inject constructor(
             return
         }
         val image = Image(title,place,date,selectedImage.value ?:"")
+        insertImage(image)
+        setSelectedImage("")
+        insertImageMsg.postValue(Resource.success(image))
     }
 
 }
