@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.RequestManager
 import com.yusuf.photogallery.R
 import com.yusuf.photogallery.databinding.FragmentSharingImageBinding
+import javax.inject.Inject
 
 
-class SharingImage : Fragment(R.layout.fragment_sharing_image) {
+class SharingImage @Inject constructor(
+    private val glide: RequestManager
+) : Fragment(R.layout.fragment_sharing_image) {
 
     private lateinit var fragmentBinding: FragmentSharingImageBinding
 

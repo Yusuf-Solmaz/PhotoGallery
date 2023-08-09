@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.yusuf.photogallery.R
+import com.yusuf.photogallery.adapter.ImageSearchRecyclerAdapter
 import com.yusuf.photogallery.databinding.FragmentImageSearchBinding
+import javax.inject.Inject
 
-class ImageSearch : Fragment(R.layout.fragment_image_search) {
+class ImageSearch @Inject constructor(
+    private val imageSearchRecyclerAdapter: ImageSearchRecyclerAdapter
+): Fragment(R.layout.fragment_image_search) {
 
 
     private  var fragmentBinding: FragmentImageSearchBinding? = null
