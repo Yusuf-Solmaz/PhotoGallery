@@ -55,6 +55,8 @@ class FeedFragment @Inject constructor(
         binding.recyclerViewFeed.adapter= recyclerAdapter
         binding.recyclerViewFeed.layoutManager=LinearLayoutManager(requireContext())
 
+        ItemTouchHelper(swipeCallBack).attachToRecyclerView(binding.recyclerViewFeed)
+
         binding.fab.setOnClickListener {
             findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToSharingImage())
         }

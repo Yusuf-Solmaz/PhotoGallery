@@ -24,17 +24,19 @@ class SharingImage @Inject constructor(
 
     private  var fragmentBinding : FragmentSharingImageBinding? = null
 
-    private lateinit var viewModel: ImageViewModel
+    lateinit var viewModel: ImageViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity())[ImageViewModel::class.java]
 
         val binding = FragmentSharingImageBinding.bind(view)
         fragmentBinding = binding
 
         subscribeToObservers()
 
-        viewModel = ViewModelProvider(requireActivity()).get(ImageViewModel::class.java)
+
 
 
         binding.imageView.setOnClickListener {
@@ -43,6 +45,7 @@ class SharingImage @Inject constructor(
         
         val callback= object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                viewModel.setSelectedImage("")
                 findNavController().popBackStack()
             }
         }
@@ -67,7 +70,7 @@ class SharingImage @Inject constructor(
             when(it.status){
                 Status.SUCCESS -> {
                     Toast.makeText(requireContext(),"Success!",Toast.LENGTH_LONG).show()
-                    findNavController().popBackStack()
+                    findNavController().navigateUp()
                     viewModel.resetInsertArtMSG()
                 }
                 Status.ERROR -> {
@@ -83,8 +86,8 @@ class SharingImage @Inject constructor(
     }
 
     override fun onDestroyView() {
-        fragmentBinding = null
         super.onDestroyView()
+        fragmentBinding = null
     }
 
 }
