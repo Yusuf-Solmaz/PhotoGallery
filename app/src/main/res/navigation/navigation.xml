@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_sharingImage_to_imageSearch"
             app:destination="@id/imageSearch" />
+        <action
+            android:id="@+id/action_sharingImage_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageSearch"
