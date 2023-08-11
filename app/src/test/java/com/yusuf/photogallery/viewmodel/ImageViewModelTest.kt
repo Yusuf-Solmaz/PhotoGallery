@@ -1,22 +1,35 @@
 package com.yusuf.photogallery.viewmodel
 
-import androidx.lifecycle.ViewModelProvider
-import com.yusuf.photogallery.api.RetrofitApi
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.yusuf.photogallery.MainCoroutineRule
+import com.yusuf.photogallery.getOrAwaitValueTest
 import com.yusuf.photogallery.repo.FakeImageRepository
-import com.yusuf.photogallery.repo.ImageRepository
-import com.yusuf.photogallery.repo.ImageRepositoryInterface
-import com.yusuf.photogallery.roomdb.ImageDao
+import com.google.common.truth.Truth.assertThat
+import com.yusuf.photogallery.util.Status
+
 import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class ImageViewModelTest {
 
-    private lateinit var viewModel: ImageViewModel
 
     /*
     private lateinit var imageDao :  ImageDao
     private lateinit var retrofitApi: RetrofitApi
     private var imageRepository = ImageRepository(imageDao,retrofitApi)
     */
+    /*
+
+    Main thread'de işlem yapak için yapıyoruz.
+     */
+    @get: Rule
+    var ınstantTaskExecutorRule= InstantTaskExecutorRule()
+
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    private lateinit var viewModel: ImageViewModel
 
     @Before
     fun setUp(){
@@ -25,6 +38,27 @@ class ImageViewModelTest {
 
         //viewModel = ImageViewModel(imageRepository)
         viewModel = ImageViewModel(FakeImageRepository())
+    }
 
+
+    @Test
+    fun `insert image without date return error` (){
+        viewModel.makeImage("Test Title","Test Place","")
+        val value = viewModel.insertImageMessage.getOrAwaitValueTest()  // value artık LiveData değil Resoource<Image> oldu.
+        assertThat(value.status).isEqualTo(Status.ERROR)
+    }
+
+    @Test
+    fun `insert image without title return error` (){
+        viewModel.makeImage("","Test Place","Test Date")
+        val value = viewModel.insertImageMessage.getOrAwaitValueTest()
+        assertThat(value.status).isEqualTo(Status.ERROR)
+    }
+
+    @Test
+    fun `insert image without place return error` (){
+        viewModel.makeImage("Test Title","","Test Date")
+        val value = viewModel.insertImageMessage.getOrAwaitValueTest()
+        assertThat(value.status).isEqualTo(Status.ERROR)
     }
 }
