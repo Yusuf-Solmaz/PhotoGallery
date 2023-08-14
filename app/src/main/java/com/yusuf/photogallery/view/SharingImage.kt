@@ -22,7 +22,7 @@ class SharingImage @Inject constructor(
     private val glide: RequestManager
 ) : Fragment(R.layout.fragment_sharing_image) {
 
-    private  var fragmentBinding : FragmentSharingImageBinding? = null
+    var fragmentBinding : FragmentSharingImageBinding? = null
 
     lateinit var viewModel: ImageViewModel
 

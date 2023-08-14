@@ -6,6 +6,7 @@ import com.bumptech.glide.RequestManager
 import com.yusuf.photogallery.adapter.FeedRecyclerAdapter
 import com.yusuf.photogallery.adapter.ImageSearchRecyclerAdapter
 import javax.inject.Inject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class ImageFragmentFactory @Inject constructor(
     private val imageSearchRecyclerAdapter: ImageSearchRecyclerAdapter,
@@ -13,6 +14,8 @@ class ImageFragmentFactory @Inject constructor(
     private val glide: RequestManager
 ): FragmentFactory(){
 
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
 
         return when(className){

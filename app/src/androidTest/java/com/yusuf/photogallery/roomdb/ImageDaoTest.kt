@@ -24,7 +24,7 @@ import javax.inject.Named
 class ImageDaoTest {
 
     @get: Rule
-    var ınstantTaskExecutorRule= InstantTaskExecutorRule()
+    var instantTaskExecutorRule= InstantTaskExecutorRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)

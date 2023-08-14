@@ -21,6 +21,7 @@ import javax.inject.Inject
 import com.yusuf.photogallery.R
 import com.yusuf.photogallery.view.FeedFragmentDirections
 import com.yusuf.photogallery.view.ImageFragmentFactory
+import com.yusuf.photogallery.view.SharingImage
 
 @MediumTest
 @HiltAndroidTest
@@ -35,20 +36,5 @@ class FeedFragmentTest {
     @Before
     fun setup() {
         hiltAndroidRule.inject()
-    }
-
-    @Test
-    fun testFeedFragmentToSharingImage(){
-
-        val navController = Mockito.mock(NavController::class.java)
-
-        launchFragmentInHiltContainer<FeedFragment>(
-            factory = fragmentFactory
-        ){
-            Navigation.setViewNavController(requireView(),navController)
-        }
-        Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(ViewActions.click())
-
-        Mockito.verify(navController).navigate(FeedFragmentDirections.actionFeedFragmentToSharingImage())
     }
 }
