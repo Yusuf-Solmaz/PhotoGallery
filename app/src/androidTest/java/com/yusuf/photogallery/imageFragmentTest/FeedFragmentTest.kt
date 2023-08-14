@@ -37,4 +37,20 @@ class FeedFragmentTest {
     fun setup() {
         hiltAndroidRule.inject()
     }
+
+    @Test
+    fun testNavigationFromArtToArtDetails() {
+        val navController = Mockito.mock(NavController::class.java)
+
+        launchFragmentInHiltContainer<FeedFragment>(
+            factory = fragmentFactory
+        ) {
+            Navigation.setViewNavController(requireView(),navController)
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.fab)).perform(ViewActions.click())
+        Mockito.verify(navController).navigate(
+            FeedFragmentDirections.actionFeedFragmentToSharingImage()
+        )
+    }
 }
